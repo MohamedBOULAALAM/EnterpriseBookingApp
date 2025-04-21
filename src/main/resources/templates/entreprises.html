@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Liste des Entreprises</title></head>
+<body>
+<h2>Liste des Entreprises</h2>
+<form method="get" th:action="@{/entreprises}">
+    <input type="text" name="keyword" th:value="${keyword}" placeholder="Rechercher..."/>
+    <button type="submit">Rechercher</button>
+</form>
+<a th:href="@{/entreprises/form}">Ajouter une entreprise</a>
+<table border="1">
+    <tr><th>Nom</th><th>Email</th><th>Domaine</th><th>Username</th><th>Actions</th></tr>
+    <tr th:each="e : ${entreprises}">
+        <td th:text="${e.nom}"></td>
+        <td th:text="${e.email}"></td>
+        <td th:text="${e.domaine}"></td>
+        <td th:text="${e.username}"></td>
+        <td>
+            <a th:href="@{/entreprises/edit(id=${e.id})}">Modifier</a> |
+            <a th:href="@{/entreprises/delete(id=${e.id})}" onclick="return confirm('Confirmer la suppression ?')">Supprimer</a>
+        </td>
+    </tr>
+</table>
+<div>
+    <span th:each="i : ${#numbers.sequence(0, pages.length-1)}">
+        <a th:href="@{'/entreprises?page=' + ${i} + '&keyword=' + ${keyword}}" th:text="${i}"
+           th:class="${i==currentPage} ? 'bold' : ''"></a>
+    </span>
+</div>
+</body>
+</html>

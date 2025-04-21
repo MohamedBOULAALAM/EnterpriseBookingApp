@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Formulaire Entreprise</title></head>
+<body>
+<h2 th:text="${entreprise.id == null} ? 'Ajouter une entreprise' : 'Modifier l\\'entreprise'"></h2>
+<form th:action="@{/entreprises/save}" method="post" th:object="${entreprise}">
+    <input type="hidden" th:field="*{id}"/>
+    Nom: <input type="text" th:field="*{nom}" required/><br/>
+    Email: <input type="email" th:field="*{email}" required/><br/>
+    Domaine: <input type="text" th:field="*{domaine}" required/><br/>
+    Username: <input type="text" th:field="*{username}" required/><br/>
+    <button type="submit">Enregistrer</button>
+</form>
+</body>
+</html>
